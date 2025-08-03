@@ -22,7 +22,8 @@ export default function RootLayout() {
     <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
       <Stack screenOptions={{headerShown:false}}>
         <Stack.Screen name="index"/>
-         <Stack.Screen name="/(routes)/onboarding/index"/>
+        <Stack.Screen name="(routes)/onboarding/index"/>
+        <Stack.Screen name="(routes)/home/index"/>
       </Stack>
       <StatusBar style="auto" />
     </ThemeProvider>

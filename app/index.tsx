@@ -1,14 +1,25 @@
 import { View, Text } from 'react-native'
 import React, { useEffect, useState } from 'react'
 import { Redirect } from 'expo-router'
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export default function index() {
 
-    // const [ isOnBoarding, setIsOnBoarding] = useState(true);
+    const [ isOnBoarding, setIsOnBoarding] = useState(true);
+    const [loading, setLoading] = useState(true);
 
-    // useEffect(()=>{
+    useEffect(()=>{
+      const checkOnboarding = async ()=>{
+        const isOnBoarding = await AsyncStorage.getItem('onboarding');
+        if(isOnBoarding){
+          setIsOnBoarding(false);
+        }
+        setLoading(false);
+      }
+      checkOnboarding();
+    },[])
 
-    // },[])
+    if(loading) return null;
 
-  return <Redirect href="/(routes)/onboarding"/>
+  return <Redirect href={isOnBoarding ? "/(routes)/onboarding" :"/(routes)/home"}/>
 }

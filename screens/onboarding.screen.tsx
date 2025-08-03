@@ -6,6 +6,8 @@ import { OnBoardingData } from '@/configs/constants'
 import { scale, verticalScale } from 'react-native-size-matters'
 import { useFonts } from 'expo-font'
 import AntDesign from '@expo/vector-icons/AntDesign';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { router } from 'expo-router'
 
 export default function OnBoardingScreen() {
   const [activeIndex, setActiveIndex] = useState(0);
@@ -27,7 +29,7 @@ export default function OnBoardingScreen() {
     setActiveIndex(currentIndex);
   }
 
-  const handleSkip = () => {
+  const handleSkip = async () => {
     const nextIndex = activeIndex + 1;
     if(nextIndex < OnBoardingData.length){
       onScrollViewRef.current?.scrollTo({
@@ -36,8 +38,8 @@ export default function OnBoardingScreen() {
       });
       setActiveIndex(nextIndex);
     } else{
-      console.log("last index");
-      
+      await AsyncStorage.setItem('onboarding','true');
+      router.push("/(routes)/home/index");
     }
   }
   return (
